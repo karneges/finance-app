@@ -1,0 +1,14 @@
+.circles {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  &__circle{
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+.circle-text {
+  display: flex;
+  flex-direction: column;
+}
