@@ -29,7 +29,9 @@ const App = () => {
   const [filtredSenders, onSetTimeFrame] = useTimeFrameFilter(senders);
   return (
     <Layout style={{ backgroundColor: "white" }}>
-      <Header className="header"><h1>Finance App </h1></Header>
+      <Header className="header">
+        <h1>Finance App </h1>
+      </Header>
       <Content>
         <Circles debit={debit} credit={credit} color={color} />
         <OptionsRow setPageSize={setPageSize} onSetTimeFrame={onSetTimeFrame} />
