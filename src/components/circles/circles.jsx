@@ -10,8 +10,7 @@ const Circles = ({ debit, credit, color }) => {
       <Tooltip>
         <Progress
           className="circles__circle"
-          percent={100}
-          successPercent={debitPercent}
+          percent={debitPercent}
           type="circle"
           format={() => <CircleText text={"Debit"} value={debit} />}
           strokeColor={color}
@@ -20,8 +19,7 @@ const Circles = ({ debit, credit, color }) => {
       <Tooltip>
         <Progress
           className="circles__circle"
-          percent={100}
-          successPercent={creditPersent}
+          percent={creditPersent}
           type="circle"
           format={() => <CircleText text={"Credit"} value={credit} />}
           strokeColor={color}

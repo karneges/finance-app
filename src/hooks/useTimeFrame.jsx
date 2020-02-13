@@ -1,7 +1,9 @@
 import { useState, useCallback, useEffect } from "react";
 import { getTimeFrame } from "../utils/utils";
 
-const useTimeFrame = senders => {
+const useTimeFrameFilter = (senders) => {
+
+  
   const [filtredSenders, setFiltredSenders] = useState();
   const [timeFrame, setTimeFrame] = useState({
     start: -Infinity,
@@ -24,10 +26,13 @@ const useTimeFrame = senders => {
     [timeFrame.end, timeFrame.start]
   );
   useEffect(() => {
+    if(!senders){
+      return
+    }
     setFiltredSenders(senders.filter(sender => timeFilter(sender)));
   }, [senders, timeFilter]);
 
   return [filtredSenders, onSetTimeFrame];
 };
 
-export default useTimeFrame;
+export default useTimeFrameFilter;

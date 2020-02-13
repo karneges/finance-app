@@ -1,44 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Layout } from "antd";
 import "antd/dist/antd.css";
 import "./app.scss";
 import Circles from "../circles/circles";
 import FinTable from "../table/table";
-import getData from "../../utils/dataBase";
 import getTitles from "../../utils/getTitles";
 import { english } from "../../constance/constants";
 import OptionsRow from "../options-row/options-row";
-
-import useTimeFrame from "../../hooks/useTimeFrame";
-const { Header, Content, Footer } = Layout;
+import getFinanceData from "../../services/finance-service";
+import useTimeFrameFilter from "../../hooks/useTimeFrame";
+const { Header, Content } = Layout;
 const App = () => {
-  const [senders] = useState(getData(200));
+  const [senders, setSenders] = useState([]);
   const [pageSize, setPageSize] = useState(5);
-  const [languages, setLanguages] = useState(english);
-  const [currentSender, setCurrentSender] = useState(senders[0]);
+  const [languages] = useState(english);
+  const [currentSender, setCurrentSender] = useState({});
   const languagesTitles = getTitles(languages);
-  const { debit, credit, color } = currentSender;
+  const { debit = 0, credit = 0, color = "red" } = currentSender;
+
+  useEffect(() => {
+    getFinanceData(1000).then(res => setSenders(res));
+  }, []);
+
   const onPickRow = sender => {
     setCurrentSender(sender);
   };
 
-  const [filtredSenders, onSetTimeFrame] = useTimeFrame(senders);
+  const [filtredSenders, onSetTimeFrame] = useTimeFrameFilter(senders);
   return (
-    <Layout>
-      <Header className="header">Finance App</Header>
+    <Layout style={{ backgroundColor: "white" }}>
+      <Header className="header"><h1>Finance App </h1></Header>
       <Content>
-            <Circles debit={debit} credit={credit} color={color} />
-            <OptionsRow
-              setPageSize={setPageSize}
-              onSetTimeFrame={onSetTimeFrame}
-            />
-            <FinTable
-              data={filtredSenders}
-              pageSize={+pageSize}
-              titles={languagesTitles}
-              onPicRow={onPickRow}
-            />
-
+        <Circles debit={debit} credit={credit} color={color} />
+        <OptionsRow setPageSize={setPageSize} onSetTimeFrame={onSetTimeFrame} />
+        <FinTable
+          data={filtredSenders}
+          pageSize={+pageSize}
+          titles={languagesTitles}
+          onPicRow={onPickRow}
+        />
       </Content>
     </Layout>
   );

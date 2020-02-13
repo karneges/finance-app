@@ -1,6 +1,6 @@
 const calculatePercent = (debit, credit) => {
   const percent = (debit + credit) * 0.01
-  return [debit / percent, credit / percent]
+  return [credit / percent,debit / percent]
 }
 
 const getTimeFrame = (start, end) => {
