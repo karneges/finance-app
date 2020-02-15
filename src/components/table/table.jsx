@@ -48,6 +48,7 @@ const FinTable = ({ data, pageSize, titles, onPicRow }) => {
 
   return (
     <Table
+    // style={{cursor:'pointer'}}
       rowKey={el => el.transaction_id}
       loading={!data || data.length === 0}
       bordered={true}
